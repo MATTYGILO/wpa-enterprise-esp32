@@ -1,0 +1,101 @@
+
+name: ESP32 S3
+
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#onschedule
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    paths-ignore:
+      - 'examples/**'
+      - 'README.md'
+      - 'ci/*unix*.sh'
+      - '.github/workflows/build_unix.yml'
+
+jobs:
+  tensorflow_micropython_esp32s3_build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Prepare to Build Micropython Firmware for ESP32
+        run: |
+          git submodule init
+          git submodule update --recursive
+          cd micropython
+          git submodule update --init lib/axtls
+          git submodule update --init lib/berkeley-db-1.xx
+          cd ..
+      - name: Get Cache Keys
+        # later get this like this: git ls-remote --heads https://github.com/espressif/esp-idf
+        # this commit is hard-coded in micropython/tools/ci.sh
+        run: |
+          IDF_COMMIT=8c8f700c1df05d8287316c78b98b940e119f900c
+          echo "esp-idf-commit=$IDF_COMMIT" >> $GITHUB_ENV
+#          TFLM_COMMIT=$(git submodule status tensorflow | awk '{print ($1)}')
+#          echo "tflm-commit=$TFLM_COMMIT" >> $GITHUB_ENV
+#      - name: Cache esp-idf
+#        id: cache-esp-idf
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-esp-idf
+#        with:
+#          path: ./esp-idf
+#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.esp-idf-commit }}
+      - name: Setup IDF
+#        if: steps.cache-esp-idf.outputs.cache-hit != 'true'
+        run: |
+          source ./micropython/tools/ci.sh && ci_esp32_idf44_setup
+      - name: Install python3
+        run: |
+          sudo apt-get install python3.10
+      - name: Build micropython cross compiler
+        run:  |
+          source ./esp-idf/export.sh
+          cd ./micropython
+          echo "make -C mpy-cross V=1 clean all"
+          make -C mpy-cross V=1 clean all
+      - name: Build standard non-ps ram ESP32 S3 8MB FLASH
+        run: |
+          source ./esp-idf/export.sh
+          
+          echo "cd ./micropython/ports/esp32"
+          cd ./micropython/ports/esp32
+          
+          make BOARD=GENERIC_S3 USER_C_MODULES=../../../../micropython.cmake
+          #echo "cd ./boards/esp32/MICROLITE_S3"
+          #cd ./boards/esp32/MICROLITE_S3
+          echo "Building MICROLITE_S3"
+          rm -rf build
+          idf.py clean build
+      - name: Archive ESP32-S3  MICROLITE firmware
+        uses: actions/upload-artifact@v2
+        with:
+          name: microlite-esp32-s3-firmware
+          path: |
+            ./micropython/ports/esp32/build-GENERIC_S3/bootloader/bootloader.bin
+            ./micropython/ports/esp32/build-GENERIC_S3/partition_table/partition-table.bin
+            ./micropython/ports/esp32/build-GENERIC_S3/micropython.bin
+      - name: Build ESP32 S3 psram support and 8MB Flash firmware
+        run: |
+          source ./esp-idf/export.sh
+          echo "cd ./micropython/ports/esp32"
+          cd ./micropython/ports/esp32
+          
+          make BOARD=GENERIC_S3_SPIRAM USER_C_MODULES=../../../../micropython.cmake
+          
+          #echo "cd ./boards/esp32/MICROLITE_S3_SPIRAM"
+          #cd ./boards/esp32/MICROLITE_S3_SPIRAM
+          echo "Building MICROLITE_S3_SPIRAM"
+          rm -rf builds
+          idf.py clean build
+      - name: Archive ESP32-MICROLITE_S3_SPIRAM firmware
+        uses: actions/upload-artifact@v2
+        with:
+          name: microlite-esp32-s3-spiram-firmware
+          path: |
+            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/bootloader/bootloader.bin
+            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/partition_table/partition-table.bin
+            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/micropython.bin
