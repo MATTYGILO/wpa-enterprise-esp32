@@ -57,6 +57,40 @@ STATIC mp_obj_t enterprise_connect(const mp_obj_t ssid, const mp_obj_t username,
     Serial.println("IP address set: ");
     Serial.println(WiFi.localIP());
 
+
+//    mp_check_self(mp_obj_is_str_or_bytes(ssid));
+//    GET_STR_DATA_LEN(o_in, str, str_len);
+//    printf("string length: %lu\n", str_len);
+//    char out_str[str_len];
+//    strcpy(out_str, (char *)str);
+//    for(size_t i=0; i < (str_len-1)/2; i++) {
+//        byteswap(out_str[i], out_str[str_len-i-1]);
+//    }
+//
+//    const char * key_string = mp_obj_get_type_str(input);
+//    int size_input_int = mp_obj_get_int(size_input);
+//    const char * extern_pubkey_string = mp_obj_get_type_str(extern_pubkey);
+//    const char * wrapped_key_string = mp_obj_get_type_str(output);
+//
+//    // Convert from string to key string array
+//    uint8_t key_string_array[32];
+//    memcpy(key_string_array, key_string, 32);
+//
+//    // Convert from string to key string array
+//    uint8_t extern_pubkey_string_array[64];
+//    memcpy(extern_pubkey_string_array, extern_pubkey_string, 64);
+//
+//    // Convert from string to key string array
+//    uint8_t wrapped_key_string_array[132];
+//    memcpy(wrapped_key_string_array, wrapped_key_string, 132);
+//
+//
+//    // Calculate the addition and convert to MicroPython object.
+//    // return mp_obj_new_int(a + b);
+//
+//    //    uint8_t * input, unsigned size_input, uint8_t * extern_pubkey, uint8_t * output
+//    // key, 32, extern_pubkey, wraped_key
+//    return ECIES_encrypt_key(key_string_array, size_input_int, extern_pubkey_string_array, wrapped_key_string_array);
 }
 // Define a Python reference to the function above.Tes
 STATIC MP_DEFINE_CONST_FUN_OBJ_2(enterprise_connect_obj, enterprise_connect);
