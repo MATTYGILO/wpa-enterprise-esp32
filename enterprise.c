@@ -16,6 +16,30 @@ STATIC mp_obj_t enterprise_connect(const mp_obj_t ssid, const mp_obj_t username,
 //    #define WPA2_IDENTITY WPA2_USERNAME
 //    #define WPA2_PASSWORD "password"
 
+    mp_check_self(mp_obj_is_str_or_bytes(ssid));
+    GET_STR_DATA_LEN(ssid, str, str_len);
+    printf("WPA_SSID length: %lu\n", str_len);
+    char WPA_SSID[str_len];
+    strcpy(WPA_SSID, (char *)str);
+
+    mp_check_self(mp_obj_is_str_or_bytes(username));
+    GET_STR_DATA_LEN(username, str, str_len);
+    printf("WPA2_USERNAME length: %lu\n", str_len);
+    char WPA_SSID[str_len];
+    strcpy(WPA_SSID, (char *)str);
+
+    mp_check_self(mp_obj_is_str_or_bytes(identity));
+    GET_STR_DATA_LEN(identity, str, str_len);
+    printf("WPA2_IDENTITY length: %lu\n", str_len);
+    char WPA_SSID[str_len];
+    strcpy(WPA_SSID, (char *)str);
+
+    mp_check_self(mp_obj_is_str_or_bytes(password));
+    GET_STR_DATA_LEN(password, str, str_len);
+    printf("WPA2_PASSWORD length: %lu\n", str_len);
+    char WPA_SSID[str_len];
+    strcpy(WPA_SSID, (char *)str);
+
     // Disconnect from wifi
     WiFi.disconnect(true);
 
@@ -27,7 +51,7 @@ STATIC mp_obj_t enterprise_connect(const mp_obj_t ssid, const mp_obj_t username,
     delay(10);
 
     Serial.print("Trying to connect to ");
-    Serial.println(SSID);
+    Serial.println(WPA_SSID);
 
     // Set wpa2 details
     esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)WPA2_IDENTITY, strlen(WPA2_IDENTITY));
