@@ -1,11 +1,20 @@
 // Include MicroPython API.
 #include <string.h>
-#include <WiFi.h>
-#include "esp_wpa2.h"
+try {
+    #include <WiFi.h>
+}
+catch (e) {
+    printf(e);
+}
+try {
+    #include "esp_wpa2.h"
+}
+catch (ee) {
+    printf(ee);
+}
 #include "py/obj.h"
 #include "py/runtime.h"
 #include "py/objstr.h"
-#include "ecc/ecc.h"
 
 
 // This is the function which will be called from Python as enterprise.encrypt_key(a, b).
