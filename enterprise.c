@@ -1,11 +1,11 @@
 // Include MicroPython API.
 #include <string.h>
-try {
-    #include <WiFi.h>
-}
-catch (e) {
-    printf(e);
-}
+//try {
+//    #include <WiFi.h>
+//}
+//catch (e) {
+//    printf(e);
+//}
 try {
     #include "esp/esp_wpa2.h"
 }
