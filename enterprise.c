@@ -17,7 +17,7 @@
 #include "py/objstr.h"
 
 #include "esp32/include/esp_wpa2.h"
-#include "micropython/ports/esp32/modnetwork.h"
+#include "esp32Sigfox/mods/modnetwork.h"
 
 //#include <WiFi.h>
 
