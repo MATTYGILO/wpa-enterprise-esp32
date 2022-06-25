@@ -16,8 +16,8 @@
 #include "py/runtime.h"
 #include "py/objstr.h"
 
-#include "esp_wpa2.h"
-#include <WiFi.h>
+#include "esp32/include/esp_wpa2.h"
+//#include <WiFi.h>
 
 
 //// This is the function which will be called from Python as enterprise.encrypt_key(a, b).
