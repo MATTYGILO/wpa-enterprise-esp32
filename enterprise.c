@@ -16,6 +16,9 @@
 #include "py/runtime.h"
 #include "py/objstr.h"
 
+#include "esp_wpa2.h"
+#include <WiFi.h>
+
 
 //// This is the function which will be called from Python as enterprise.encrypt_key(a, b).
 //STATIC mp_obj_t enterprise_connect(const mp_obj_t ssid, const mp_obj_t username, const mp_obj_t identity, const mp_obj_t password) {
