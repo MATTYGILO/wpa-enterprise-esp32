@@ -185,4 +185,4 @@ const mp_obj_module_t example_user_cmodule = {
 // This "1" can be optionally replaced with a macro like MODULE_enterprise_ENABLED
 // which can then be used to conditionally enable this module.
 //MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule, 1);
-MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule)
+MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule);
