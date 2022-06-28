@@ -143,8 +143,8 @@ STATIC mp_obj_t enterprise_connect(mp_obj_t username, mp_obj_t password) { // mp
     const char *EAP_IDENTITY = mp_obj_str_get_data(username,&Ilen);
     const char *EAP_PASSWORD = mp_obj_str_get_data(password,&Plen);
 
-    printf(EAP_IDENTITY)
-    printf(EAP_PASSWORD)
+    printf(EAP_IDENTITY);
+    printf(EAP_PASSWORD);
 
 ////    esp_exceptions();
 //    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY));
