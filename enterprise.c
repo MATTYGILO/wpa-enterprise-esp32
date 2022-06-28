@@ -16,7 +16,7 @@
 #include "py/runtime.h"
 #include "py/objstr.h"
 
-#include "esp_wpa2.h"
+//#include "esp_wpa2.h"
 //#include "esp32/include/esp_err.h"
 //#include "micropython/ports/esp32/modnetwork.h"
 
@@ -142,23 +142,26 @@ STATIC mp_obj_t enterprise_connect(mp_obj_t username, mp_obj_t password) { // mp
     const char *EAP_IDENTITY = mp_obj_str_get_data(username,&Ilen);
     const char *EAP_PASSWORD = mp_obj_str_get_data(password,&Plen);
 
-//    esp_exceptions();
-    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY));
+    printf(EAP_IDENTITY)
+    printf(EAP_PASSWORD)
 
-//    esp_exceptions();
-    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY));
-
-    //esp_exceptions(esp_wifi_sta_wpa2_ent_set_new_password((uint8_t *)EAP_PASSWORD, strlen(EAP_PASSWORD)));
-
-//    esp_exceptions();
-    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)EAP_PASSWORD, strlen(EAP_PASSWORD));
-
-    // Set wpa2 wifi configuration to default settings
-    esp_wpa2_config_t config = WPA2_CONFIG_INIT_DEFAULT();
-
-    // Set configuration settings to enable function
-//    esp_exceptions();
-    esp_wifi_sta_wpa2_ent_enable(&config);
+////    esp_exceptions();
+//    esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY));
+//
+////    esp_exceptions();
+//    esp_wifi_sta_wpa2_ent_set_username((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY));
+//
+//    //esp_exceptions(esp_wifi_sta_wpa2_ent_set_new_password((uint8_t *)EAP_PASSWORD, strlen(EAP_PASSWORD)));
+//
+////    esp_exceptions();
+//    esp_wifi_sta_wpa2_ent_set_password((uint8_t *)EAP_PASSWORD, strlen(EAP_PASSWORD));
+//
+//    // Set wpa2 wifi configuration to default settings
+//    esp_wpa2_config_t config = WPA2_CONFIG_INIT_DEFAULT();
+//
+//    // Set configuration settings to enable function
+////    esp_exceptions();
+//    esp_wifi_sta_wpa2_ent_enable(&config);
 
     return mp_const_none;
 }
