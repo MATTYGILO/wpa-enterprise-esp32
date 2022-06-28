@@ -79,24 +79,43 @@ jobs:
 #             ./micropython/ports/esp32/build-GENERIC_S3/bootloader/bootloader.bin
 #             ./micropython/ports/esp32/build-GENERIC_S3/partition_table/partition-table.bin
 #             ./micropython/ports/esp32/build-GENERIC_S3/micropython.bin
-      - name: Build ESP32 S3 psram support and 8MB Flash firmware
+#       - name: Build ESP32 S3 psram support and 8MB Flash firmware
+#         run: |
+#           source ./esp-idf/export.sh
+#           echo "cd ./micropython/ports/esp32"
+#           cd ./micropython/ports/esp32
+          
+#           make BOARD=GENERIC_S3_SPIRAM USER_C_MODULES=../../../../micropython.cmake
+          
+#           #echo "cd ./boards/esp32/MICROLITE_S3_SPIRAM"
+#           #cd ./boards/esp32/MICROLITE_S3_SPIRAM
+#           echo "Building MICROLITE_S3_SPIRAM"
+#           rm -rf builds
+#           idf.py clean build
+#       - name: Archive ESP32-MICROLITE_S3_SPIRAM firmware
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: microlite-esp32-s3-spiram-firmware
+#           path: |
+#             ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/bootloader/bootloader.bin
+#             ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/partition_table/partition-table.bin
+#             ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/micropython.bin
+      - name: Build ESP32 S3 psram support and 8MB Flash firmware - OCTAL SPIRAM
         run: |
           source ./esp-idf/export.sh
-          echo "cd ./micropython/ports/esp32"
-          cd ./micropython/ports/esp32
-          
-          make BOARD=GENERIC_S3_SPIRAM USER_C_MODULES=../../../../micropython.cmake
-          
-          #echo "cd ./boards/esp32/MICROLITE_S3_SPIRAM"
-          #cd ./boards/esp32/MICROLITE_S3_SPIRAM
-          echo "Building MICROLITE_S3_SPIRAM"
+
+          echo "cd ./boards/esp32/MICROLITE_S3_SPIRAM_OCTAL"
+          cd ./boards/esp32/MICROLITE_S3_SPIRAM_OCTAL
+
+          echo "Building MICROLITE_S3_SPIRAM_OCTAL"
           rm -rf builds
           idf.py clean build
-      - name: Archive ESP32-MICROLITE_S3_SPIRAM firmware
+
+      - name: Archive ESP32-MICROLITE_S3_SPIRAM_OCTAL firmware
         uses: actions/upload-artifact@v2
         with:
-          name: microlite-esp32-s3-spiram-firmware
+          name: microlite-esp32-s3-spiram-octal-firmware
           path: |
-            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/bootloader/bootloader.bin
-            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/partition_table/partition-table.bin
-            ./micropython/ports/esp32/build-GENERIC_S3_SPIRAM/micropython.bin
+            boards/esp32/MICROLITE_S3_SPIRAM_OCTAL/build/bootloader/bootloader.bin
+            boards/esp32/MICROLITE_S3_SPIRAM_OCTAL/build/partition_table/partition-table.bin
+            boards/esp32/MICROLITE_S3_SPIRAM_OCTAL/build/micropython.bin
