@@ -1,1 +1,0 @@
-Common scripts between Base and Pybytes
