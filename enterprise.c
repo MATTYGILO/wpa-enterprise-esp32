@@ -135,13 +135,11 @@
 
 
 //Set up EAP
-STATIC mp_obj_t esp_seteap(mp_obj_t self_in, mp_obj_t username, mp_obj_t password){
+STATIC mp_obj_t enterprise_connect(mp_obj_t username, mp_obj_t password) { // mp_obj_t self_in,
     size_t Ilen;
     size_t Plen;
     const char *EAP_IDENTITY = mp_obj_str_get_data(username,&Ilen);
     const char *EAP_PASSWORD = mp_obj_str_get_data(password,&Plen);
-
-
 
     esp_exceptions(esp_wifi_sta_wpa2_ent_set_identity((uint8_t *)EAP_IDENTITY, strlen(EAP_IDENTITY)));
 
@@ -160,7 +158,7 @@ STATIC mp_obj_t esp_seteap(mp_obj_t self_in, mp_obj_t username, mp_obj_t passwor
     return mp_const_none;
 }
 
-STATIC MP_DEFINE_CONST_FUN_OBJ_3(esp_seteap_obj, esp_seteap);
+STATIC MP_DEFINE_CONST_FUN_OBJ_2(enterprise_connect_obj, enterprise_connect);
 
 // Define all properties of the module.
 // Table entries are key/value pairs of the attribute name (a string)
@@ -169,7 +167,7 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_3(esp_seteap_obj, esp_seteap);
 // optimized to word-sized integers by the build system (interned strings).
 STATIC const mp_rom_map_elem_t example_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_enterprise) },
-    { MP_ROM_QSTR(MP_QSTR_encrypt_key), MP_ROM_PTR(&esp_seteap_obj) },
+    { MP_ROM_QSTR(MP_QSTR_encrypt_key), MP_ROM_PTR(&enterprise_connect_obj) },
 };
 
 STATIC MP_DEFINE_CONST_DICT(example_module_globals, example_module_globals_table);
@@ -184,5 +182,5 @@ const mp_obj_module_t example_user_cmodule = {
 // Note: the "1" in the third argument means this module is always enabled.
 // This "1" can be optionally replaced with a macro like MODULE_enterprise_ENABLED
 // which can then be used to conditionally enable this module.
-//MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule, 1);
-MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule);
+MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule, 1);
+//MP_REGISTER_MODULE(MP_QSTR_enterprise, example_user_cmodule);
