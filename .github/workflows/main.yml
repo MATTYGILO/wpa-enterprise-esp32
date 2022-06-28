@@ -32,7 +32,7 @@ jobs:
         # later get this like this: git ls-remote --heads https://github.com/espressif/esp-idf
         # this commit is hard-coded in micropython/tools/ci.sh
         run: |
-          IDF_COMMIT=8c8f700c1df05d8287316c78b98b940e119f900c
+          IDF_COMMIT=c2ccc383dae2a47c2c2dc8c7ad78175a3fd11361 # 8c8f700c1df05d8287316c78b98b940e119f900c
           echo "esp-idf-commit=$IDF_COMMIT" >> $GITHUB_ENV
 #          TFLM_COMMIT=$(git submodule status tensorflow | awk '{print ($1)}')
 #          echo "tflm-commit=$TFLM_COMMIT" >> $GITHUB_ENV
