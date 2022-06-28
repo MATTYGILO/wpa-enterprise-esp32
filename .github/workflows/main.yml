@@ -59,27 +59,27 @@ jobs:
           cd ./micropython
           echo "make -C mpy-cross V=1 clean all"
           make -C mpy-cross V=1 clean all
-      - name: Build standard non-ps ram ESP32 S3 8MB FLASH
-        run: |
-          source ./esp-idf/export.sh
+#       - name: Build standard non-ps ram ESP32 S3 8MB FLASH
+#         run: |
+#           source ./esp-idf/export.sh
           
-          echo "cd ./micropython/ports/esp32"
-          cd ./micropython/ports/esp32
+#           echo "cd ./micropython/ports/esp32"
+#           cd ./micropython/ports/esp32
           
-          make BOARD=GENERIC_S3 USER_C_MODULES=../../../../micropython.cmake
-          #echo "cd ./boards/esp32/MICROLITE_S3"
-          #cd ./boards/esp32/MICROLITE_S3
-          echo "Building MICROLITE_S3"
-          rm -rf build
-          idf.py clean build
-      - name: Archive ESP32-S3  MICROLITE firmware
-        uses: actions/upload-artifact@v2
-        with:
-          name: microlite-esp32-s3-firmware
-          path: |
-            ./micropython/ports/esp32/build-GENERIC_S3/bootloader/bootloader.bin
-            ./micropython/ports/esp32/build-GENERIC_S3/partition_table/partition-table.bin
-            ./micropython/ports/esp32/build-GENERIC_S3/micropython.bin
+#           make BOARD=GENERIC_S3 USER_C_MODULES=../../../../micropython.cmake
+#           #echo "cd ./boards/esp32/MICROLITE_S3"
+#           #cd ./boards/esp32/MICROLITE_S3
+#           echo "Building MICROLITE_S3"
+#           rm -rf build
+#           idf.py clean build
+#       - name: Archive ESP32-S3  MICROLITE firmware
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: microlite-esp32-s3-firmware
+#           path: |
+#             ./micropython/ports/esp32/build-GENERIC_S3/bootloader/bootloader.bin
+#             ./micropython/ports/esp32/build-GENERIC_S3/partition_table/partition-table.bin
+#             ./micropython/ports/esp32/build-GENERIC_S3/micropython.bin
       - name: Build ESP32 S3 psram support and 8MB Flash firmware
         run: |
           source ./esp-idf/export.sh
