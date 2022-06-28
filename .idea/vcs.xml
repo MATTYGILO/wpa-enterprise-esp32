@@ -108,5 +108,7 @@
     <mapping directory="$PROJECT_DIR$/micropython/lib/tinyusb/tools/uf2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/micropython/lib/tinyusb/tools/uf2/hidapi" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/micropython/lib/wiznet5k" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/micropython/ports/esp32/boards/GENERIC_S3_SPIRAM/cmodules/ucrypto" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/micropython/ports/stm32/boards/PYBD_SF6/cmodules/ucrypto" vcs="Git" />
   </component>
 </project>
