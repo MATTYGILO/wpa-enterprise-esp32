@@ -32,8 +32,6 @@ jobs:
         run: |
           IDF_COMMIT=5bb59b00e72f8f91eb24d8c65bf9a7ea2b8a4f5f
           echo "esp-idf-commit=$IDF_COMMIT" >> $GITHUB_ENV
-          TFLM_COMMIT=$(git submodule status tensorflow | awk '{print ($1)}')
-          echo "tflm-commit=$TFLM_COMMIT" >> $GITHUB_ENV
 #      - name: Cache esp-idf
 #        id: cache-esp-idf
 #        uses: actions/cache@v2
@@ -46,29 +44,6 @@ jobs:
 #        if: steps.cache-esp-idf.outputs.cache-hit != 'true'
         run: |
           source ./micropython/tools/ci.sh && ci_esp32_idf44_setup
-      - name: Cache tflm
-        id: cache-tflm
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-tflm
-        with:
-          path: ./micropython-modules/microlite/tflm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ env.tflm-commit }}
-      - name: Setup Build for Tensorflow
-        if: steps.cache-tflm.outputs.cache-hit != 'true'
-        run: |
-
-          source ./esp-idf/export.sh
-
-          pip3 install Pillow
-          pip3 install Wave
-
-          echo "Regenerating microlite/tfm directory"
-          rm -rf ./micropython-modules/microlite/tflm
-
-          cd ./tensorflow
-
-          ../micropython-modules/microlite/prepare-tflm-esp.sh
           
       - name: Build micropython cross compiler
         run:  |
